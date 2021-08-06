@@ -1,18 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "React Chrome Extension",
+  "name": "Amazon Musashino Library Search",
+  "description": "Set up a search result link for the Musashino City Library as a button on the Amazon product page.",
   "version": "1",
-  "browser_action": {
-    "default_icon": "logo192.png",
-    "default_popup": "index.html"
-  },
   "content_scripts" : [
     {
-      "matches": [ "<all_urls>" ],
+      "matches": [ "https://www.amazon.co.jp/*" ],
       "js": ["/static/js/content_script.js"]
     }
-  ],
-  "background": {
-    "scripts": ["/static/js/background_script.js"]
-  }
+  ]
 }

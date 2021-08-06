@@ -1,15 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Button from './Button';
 
-const root = document.createElement('div');
-root.style = "position: absolute; top: 0; bottom: 0; left: 0; right: 0; z-index: 1000000";
-document.body.appendChild(root);
-ReactDOM.render(<App />, root);
+const exec = () => {
+    let target_elem = document.getElementById('tmmSwatches');
+    if (!target_elem) {
+        console.log('this is not product page');
+        return;
+    }
+    
+    const isbn10 = (() => {
+        const product_info = document.getElementById('rich_product_information');
+        if (!product_info) { return ''; }
+        const span_elems = product_info.querySelectorAll("span");
+    
+        const isbn10_label_span = Array.from(span_elems).find(v => v.textContent === 'ISBN-10');
+        if (!isbn10_label_span) { return ''; }
+        const isbn10_text_span = isbn10_label_span.parentElement.parentElement.lastElementChild;
+        const isbn10_value = isbn10_text_span.textContent.replaceAll('\n', '');
+        return isbn10_value;
+    })();
+    if (!isbn10) {
+        console.log("this product doesn't have ISBN-10");
+        return;
+    }
+    
+    const root = document.createElement('div');
+    target_elem.appendChild(root);
+    ReactDOM.render(<Button isbn10_value={isbn10} />, root);
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+exec();

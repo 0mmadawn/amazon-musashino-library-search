@@ -7,8 +7,9 @@ module.exports = {
     config.entry = {
       main: [path.resolve("src/index")],
       content_script: [path.resolve("src/content_script")],
-      background_script: [path.resolve("src/background_script")]
     };
+    // mainもといpublic/index.html, src/index.jsを消したいけど
+    // 消すとcreate-react-app的にうまく動かなくなる
 
     // ファイル名にhashが含まれないようにする
     config.output.filename = "static/js/[name].js";
